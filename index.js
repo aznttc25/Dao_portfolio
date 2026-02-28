@@ -37,30 +37,19 @@
 
   const setActive = (id) => {
     links.forEach(a => {
-      const isMatch = a.getAttribute("href") === `#${id}`;
-      if (isMatch) a.setAttribute("aria-current", "page");
-      else a.removeAttribute("aria-current");
+      const match = a.getAttribute("href") === `#${id}`;
+      a.toggleAttribute("aria-current", match);
     });
   };
 
-  // Click sets active immediately (nice on mobile)
-  links.forEach(a => {
-    a.addEventListener("click", () => {
-      const targetId = a.getAttribute("href").slice(1);
-      setActive(targetId);
-    });
-  });
-
-  // Intersection observer for scroll-based highlighting
   const io = new IntersectionObserver((entries) => {
     const visible = entries
       .filter(e => e.isIntersecting)
-      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
+      .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
     if (visible) setActive(visible.target.id);
-  }, { threshold: [0.35, 0.55, 0.75] });
+  }, { threshold: [0.45, 0.6] });
 
-  sections.forEach(sec => io.observe(sec));
+  sections.forEach(s => io.observe(s));
   setActive(sections[0]?.id || "home");
 })();
 
