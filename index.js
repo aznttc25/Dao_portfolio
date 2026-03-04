@@ -56,54 +56,67 @@
 /* =========================
    Projects Modal
 ========================= */
-(function projectsModal(){
+(function projectsCaseStudy(){
   const modal = document.getElementById("projectModal");
   if (!modal) return;
 
-  const titleEl = document.getElementById("modalTitle");
-  const subEl = document.getElementById("modalSubtitle");
-  const roleEl = document.getElementById("modalRole");
-  const stackEl = document.getElementById("modalStack");
-  const probEl = document.getElementById("modalProblem");
-  const solEl = document.getElementById("modalSolution");
-  const impactEl = document.getElementById("modalImpact");
-  const linksEl = document.getElementById("modalLinks");
+  const caseTitle = document.getElementById("caseTitle");
+  const caseIntro = document.getElementById("caseIntro");
+  const caseChallenge = document.getElementById("caseChallenge");
+  const caseSolution = document.getElementById("caseSolution");
 
-  const openModal = () => {
+  const sideTitle = document.getElementById("caseSideTitle");
+  const sideBlurb = document.getElementById("caseSideBlurb");
+  const roleEl = document.getElementById("caseRole");
+  const clientEl = document.getElementById("caseClient");
+  const stackEl = document.getElementById("caseStack");
+  const linksEl = document.getElementById("modalLinks");
+  const heroEl = document.getElementById("caseHeroMedia");
+
+  const open = () => {
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
   };
 
-  const closeModal = () => {
+  const close = () => {
     modal.classList.remove("is-open");
     modal.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
   };
 
-  // Close on backdrop or close button
   modal.addEventListener("click", (e) => {
-    if (e.target.matches("[data-close]")) closeModal();
+    if (e.target.matches("[data-close]")) close();
   });
 
-  // Close on ESC
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+    if (e.key === "Escape" && modal.classList.contains("is-open")) close();
   });
 
-  // Fill modal from card dataset
   document.querySelectorAll(".project-card").forEach(card => {
     card.addEventListener("click", () => {
-      titleEl.textContent = card.dataset.title || "Project";
-      subEl.textContent = card.dataset.subtitle || "";
+      const title = card.dataset.title || "Project";
+      const subtitle = card.dataset.subtitle || "";
 
-      roleEl.textContent = card.dataset.role || "";
-      stackEl.textContent = card.dataset.stack || "";
-      probEl.textContent = card.dataset.problem || "";
-      solEl.textContent = card.dataset.solution || "";
-      impactEl.textContent = card.dataset.impact || "";
+      // main content
+      caseTitle.textContent = title;
+      caseIntro.textContent = subtitle;
 
-      // Render links
+      // map your existing attributes
+      caseChallenge.textContent = card.dataset.problem || "";
+      caseSolution.textContent = card.dataset.solution || "";
+
+      // side panel
+      sideTitle.textContent = title;
+      sideBlurb.textContent = card.dataset.impact || "";
+      roleEl.textContent = (card.dataset.role || "").replace("Role:", "").trim();
+      stackEl.textContent = (card.dataset.stack || "").replace("Stack:", "").trim();
+      clientEl.textContent = card.dataset.client || "—";
+
+      // hero placeholder (later you can inject an image)
+      heroEl.textContent = "Project Hero Image";
+
+      // links
       linksEl.innerHTML = "";
       let links = [];
       try { links = JSON.parse(card.dataset.links || "[]"); } catch { links = []; }
@@ -117,7 +130,7 @@
         linksEl.appendChild(a);
       });
 
-      openModal();
+      open();
     });
   });
 })();

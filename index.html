@@ -208,12 +208,21 @@
             data-problem="Problem: What problem did this solve?"
             data-solution="Solution: What did you build and how?"
             data-impact="Impact: What changed? Add metrics if you have them."
-            data-links='[{"label":"GitHub","href":"https://github.com/USERNAME"}]'
-          >
-            <div class="project-media"><div class="project-placeholder">Project Image</div></div>
-            <div class="project-meta">
-              <div class="project-name">PROJECT ONE</div>
-              <div class="project-desc">One sentence impact statement goes here.</div>
+            data-links='[{"label":"GitHub","href":"https://github.com/DaoDwu02"}]'>
+
+            <div class="project-media">
+              <!-- Use a real image if you have it -->
+              <!-- <img class="project-img" src="assets/project1.jpg" alt="Project One preview"> -->
+
+              <!-- Placeholder if you don’t have images yet -->
+              <div class="project-placeholder">Project Image</div>
+
+              <!-- Hover overlay -->
+              <div class="project-overlay">
+                <div class="project-overlay-text">
+                  Physicians gained autonomous access to patient data… enabling faster response and consistent support.
+                </div>
+              </div>
             </div>
           </button>
 
@@ -225,12 +234,21 @@
             data-problem="Problem: The pain point you targeted."
             data-solution="Solution: The approach + architecture."
             data-impact="Impact: performance, reliability, scale, etc."
-            data-links='[]'
-          >
-            <div class="project-media"><div class="project-placeholder">Project Image</div></div>
-            <div class="project-meta">
-              <div class="project-name">PROJECT TWO</div>
-              <div class="project-desc">One sentence impact statement goes here.</div>
+            data-links='[]'>
+
+            <div class="project-media">
+              <!-- Use a real image if you have it -->
+              <!-- <img class="project-img" src="assets/project1.jpg" alt="Project One preview"> -->
+
+              <!-- Placeholder if you don’t have images yet -->
+              <div class="project-placeholder">Project Image</div>
+
+              <!-- Hover overlay -->
+              <div class="project-overlay">
+                <div class="project-overlay-text">
+                  Physicians gained autonomous access to patient data… enabling faster response and consistent support.
+                </div>
+              </div>
             </div>
           </button>
         </div>
@@ -286,6 +304,69 @@
         </footer>
       </section>
     </main>
+  </div>
+
+  <!-- CASE STUDY (FULL SCREEN) -->
+  <div id="projectModal" class="case" aria-hidden="true">
+    <div class="case-backdrop" data-close></div>
+
+    <div class="case-shell" role="dialog" aria-modal="true" aria-labelledby="caseTitle">
+      <header class="case-top">
+        <button class="case-back" type="button" data-close aria-label="Back to projects">← <span>View all</span></button>
+        <button class="case-x" type="button" data-close aria-label="Close">×</button>
+      </header>
+
+      <div class="case-grid">
+        <!-- Left: main content -->
+        <div class="case-main">
+          <div class="case-hero">
+            <div class="case-hero-media" id="caseHeroMedia">
+              <!-- Optional: you can inject image later -->
+            </div>
+          </div>
+
+          <h1 id="caseTitle" class="case-title">Project</h1>
+          <p id="caseIntro" class="case-intro"></p>
+
+          <section class="case-section">
+            <h2>The Challenge & Process</h2>
+            <div id="caseChallenge" class="case-text"></div>
+          </section>
+
+          <section class="case-section">
+            <h2>The Solution & Impact</h2>
+            <div id="caseSolution" class="case-text"></div>
+          </section>
+        </div>
+
+        <!-- Right: sticky info panel -->
+        <aside class="case-side">
+          <div class="case-card">
+            <h3 id="caseSideTitle">Project</h3>
+            <p id="caseSideBlurb"></p>
+
+            <div class="case-facts">
+              <div class="fact">
+                <div class="fact-label">Role</div>
+                <div id="caseRole" class="fact-value"></div>
+              </div>
+
+              <div class="fact">
+                <div class="fact-label">Client</div>
+                <div id="caseClient" class="fact-value"></div>
+              </div>
+
+              <div class="fact">
+                <div class="fact-label">Stack</div>
+                <div id="caseStack" class="fact-value"></div>
+              </div>
+            </div>
+
+            <div class="case-links" id="modalLinks"></div>
+          </div>
+        </aside>
+      </div>
+    </div>
   </div>
 
   <script src="index.js"></script>
