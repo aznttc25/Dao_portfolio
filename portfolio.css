@@ -505,23 +505,23 @@ p{
 }
 
 .project-meta{
-  margin-top: 12px;
-  display: grid;
-  gap: 6px;
+  padding-top: 12px;
 }
 
 .project-name{
   font-weight: 800;
-  letter-spacing: .06em;
-  font-size: 13px;
+  font-size: 14px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
 }
 
 .project-desc{
-  color: var(--muted);
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 60ch;
 }
-
 .project-card:hover .project-media{
   transform: translateY(-2px);
   box-shadow: var(--shadow);
