@@ -7,8 +7,7 @@
 })();
 
 /* =========================
-   Smooth scroll (optional enhancement)
-   - prevents weird jump if you want
+   Smooth scroll
 ========================= */
 (function smoothAnchorClicks(){
   document.querySelectorAll('a[href^="#"]').forEach(a => {
@@ -25,7 +24,7 @@
 })();
 
 /* =========================
-   Active nav link on scroll (Scroll Spy)
+   Active nav link on scroll
 ========================= */
 (function navScrollSpy(){
   const links = Array.from(document.querySelectorAll(".side-nav .nav-link"));
@@ -38,16 +37,21 @@
   const setActive = (id) => {
     links.forEach(a => {
       const match = a.getAttribute("href") === `#${id}`;
-      a.toggleAttribute("aria-current", match);
+      if (match) {
+        a.setAttribute("aria-current", "page");
+      } else {
+        a.removeAttribute("aria-current");
+      }
     });
   };
 
   const io = new IntersectionObserver((entries) => {
     const visible = entries
       .filter(e => e.isIntersecting)
-      .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
     if (visible) setActive(visible.target.id);
-  }, { threshold: [0.45, 0.6] });
+  }, { rootMargin: "-20% 0px -45% 0px", threshold: [0.2, 0.35, 0.5, 0.7] });
 
   sections.forEach(s => io.observe(s));
   setActive(sections[0]?.id || "home");
@@ -64,12 +68,14 @@
   const caseIntro = document.getElementById("caseIntro");
   const caseChallenge = document.getElementById("caseChallenge");
   const caseSolution = document.getElementById("caseSolution");
+  const caseOutcome = document.getElementById("caseOutcome");
 
   const sideTitle = document.getElementById("caseSideTitle");
   const sideBlurb = document.getElementById("caseSideBlurb");
   const roleEl = document.getElementById("caseRole");
   const clientEl = document.getElementById("caseClient");
   const stackEl = document.getElementById("caseStack");
+  const scopeEl = document.getElementById("caseScope");
   const linksEl = document.getElementById("modalLinks");
   const heroEl = document.getElementById("caseHeroMedia");
 
@@ -98,25 +104,21 @@
       const title = card.dataset.title || "Project";
       const subtitle = card.dataset.subtitle || "";
 
-      // main content
       caseTitle.textContent = title;
       caseIntro.textContent = subtitle;
-
-      // map your existing attributes
       caseChallenge.textContent = card.dataset.problem || "";
       caseSolution.textContent = card.dataset.solution || "";
+      caseOutcome.textContent = card.dataset.impact || "";
 
-      // side panel
       sideTitle.textContent = title;
       sideBlurb.textContent = card.dataset.impact || "";
       roleEl.textContent = (card.dataset.role || "").replace("Role:", "").trim();
       stackEl.textContent = (card.dataset.stack || "").replace("Stack:", "").trim();
       clientEl.textContent = card.dataset.client || "—";
+      scopeEl.textContent = card.dataset.scope || "End-to-end feature design";
 
-      // hero placeholder (later you can inject an image)
-      heroEl.textContent = "Project Hero Image";
+      heroEl.innerHTML = `<div class="case-hero-placeholder">${title}</div>`;
 
-      // links
       linksEl.innerHTML = "";
       let links = [];
       try { links = JSON.parse(card.dataset.links || "[]"); } catch { links = []; }
